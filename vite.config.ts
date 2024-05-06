@@ -10,7 +10,7 @@ export default defineConfig({
   resolve: {
     alias: [{ find: "~", replacement: resolve(__dirname, "src") }],
   },
-  envPrefix: "VAROSA_",
+  envPrefix: "SGDG_",
   test: {
     globals: true,
 
