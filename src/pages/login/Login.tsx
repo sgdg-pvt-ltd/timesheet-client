@@ -35,7 +35,7 @@ export const Login = () => {
     }),
   });
 
-  const handleSubmit = async (data: LoginData) => {
+  const handleSubmit = async (data) => {
     const { email, password, rememberMe } = data;
     const payload = {
       email: email.trim(),
