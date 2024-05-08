@@ -19,7 +19,7 @@ function IndexLayout({ children }: any) {
   });
 
   const BootstrappedLayout = () => {
-    const isUserAuthorized = tokens?.access;
+    const isUserAuthorized = !tokens?.access;
 
     const redirectToLogin = !isAuthPage && !isUserAuthorized;
 

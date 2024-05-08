@@ -6,6 +6,7 @@ import { AppLayout, PublicLayout } from "~/components/layouts";
 // import { Loadable } from '~/components';
 const Dashboard = lazy(() => import("~/pages/dashboard"));
 const Login = lazy(() => import("~/pages/login"));
+const NotFoundPage = lazy(() => import("~/pages/404"));
 
 const authRoutes: RouteObject = {
   path: "auth",
@@ -19,7 +20,7 @@ const authRoutes: RouteObject = {
 
 const notFoundRoutes: RouteObject = {
   path: "*",
-  element: <></>,
+  element: <NotFoundPage />,
 };
 
 const appRoutes: RouteObject = {
