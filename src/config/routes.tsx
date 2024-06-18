@@ -1,12 +1,13 @@
 // import { lazy } from "react";
 import { lazy } from "react";
 import { Navigate, RouteObject } from "react-router-dom";
-import { APP, AUTH, DASHBOARD, LOGIN } from "./path";
+import { APP, AUTH, DASHBOARD, LOGIN, ORGANIZATION } from "./path";
 import { AppLayout, PublicLayout } from "~/components/layouts";
 // import { Loadable } from '~/components';
 const Dashboard = lazy(() => import("~/pages/dashboard"));
 const Login = lazy(() => import("~/pages/login"));
 const NotFoundPage = lazy(() => import("~/pages/404"));
+const Organization = lazy(() => import("~/pages/organization"));
 
 const authRoutes: RouteObject = {
   path: "auth",
@@ -31,6 +32,10 @@ const appRoutes: RouteObject = {
       index: true,
       path: DASHBOARD,
       element: <Dashboard />,
+    },
+    {
+      path: ORGANIZATION,
+      element: <Organization />,
     },
     notFoundRoutes,
   ],

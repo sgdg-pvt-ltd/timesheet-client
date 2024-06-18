@@ -11,10 +11,8 @@ export type Headers = {
 export const getAccessToken = () => {
   let token = "";
   try {
-    const item = ls.get("tokens");
-
-    const tokens = item ? JSON.parse(item) : "";
-    token = tokens?.access;
+    const item = ls.get("token");
+    token = item ?? "";
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn(`Error reading localStorage key “tokens”:`, error);
@@ -23,30 +21,13 @@ export const getAccessToken = () => {
   return token;
 };
 
-export const getSecret = () => {
-  let secret = "";
-  try {
-    const item = ls.get("secretId");
-
-    secret = item ?? "";
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.warn(`Error reading localStorage key _wks:`, error);
-    secret = "";
-  }
-  return secret;
-};
-
 export const client = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
-  const tokens: string = getAccessToken() ?? "";
-
-  const secretId = getSecret() ?? "";
+  const token: string = getAccessToken() ?? "";
   operation.setContext(({ headers }) => ({
     headers: {
       ...headers,
-      ...(tokens && { authorization: `Bearer ${tokens}` }),
-      ...(secretId && { "x-workspace-secret-id": `${secretId}` }),
+      ...(token && { authorization: `Bearer ${token}` }),
     },
   }));
   return forward(operation);

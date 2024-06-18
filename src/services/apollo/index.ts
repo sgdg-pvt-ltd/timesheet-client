@@ -11,9 +11,10 @@ import tokenRefresh from "./tokenRefresh";
 import useErrorLink from "./errorLink";
 import authLink from "./authLink";
 import cache from "./cache";
+import { CONFIG } from "~/config";
 
 // const ls = new SecureLS({ encodingType: 'aes', isCompression: false });
-const uploadLink = createUploadLink({ uri: "CONFIG.API_ENDPOINT" });
+const uploadLink = createUploadLink({ uri: CONFIG.API_ENDPOINT });
 
 // interface Definition {
 // 	kind: string;

@@ -2,6 +2,7 @@ import {
   Anchor,
   Button,
   Checkbox,
+  Image,
   Paper,
   PasswordInput,
   Text,
@@ -10,7 +11,8 @@ import {
 } from "@mantine/core";
 import { z } from "zod";
 import { ControlledField, useRHForm } from "~/components/form";
-
+import loginImg from "~/assets/images/login2.png";
+import { useLogin } from "./hooks/useLogin";
 interface LoginData {
   email: string;
   password: string;
@@ -18,6 +20,7 @@ interface LoginData {
 }
 
 export const Login = () => {
+  const { login } = useLogin();
   const {
     Form,
     methods: {
@@ -40,15 +43,24 @@ export const Login = () => {
     const payload = {
       email: email.trim(),
       password: password,
-      rememberMe,
+      // rememberMe,
     };
-    console.log(payload);
+    login(payload);
   };
   return (
-    <div className="bg-gray-200 h-screen w-full flex justify-center items-center">
-      <Paper shadow="xs" p="xl" className="min-w-[20%] min-h-fit">
-        <Form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <Title order={2}>Welcome</Title>
+    <div className="bg-[#344C9E] h-screen w-full flex justify-center items-center">
+      <Paper
+        shadow="xs"
+        p="xl"
+        className="items-center min-h-fit flex justify-between rounded-lg w-[60%] bg-slate-100 p-20"
+      >
+        <Image src={loginImg} alt="Login" w="60%" h="auto" className="p-10" />
+        <Form
+          onSubmit={handleSubmit}
+          className="flex flex-col w-2/5 gap-4 p-10 "
+          formId="login-form"
+        >
+          <Title order={1}>Welcome</Title>
           <Text>Please Login to continue</Text>
           <ControlledField
             name="email"
@@ -57,9 +69,11 @@ export const Login = () => {
             errors={errors}
             Component={TextInput}
             componentProps={{
-              label: "Email/ Username",
+              label: "Email",
               placeholder: "youremail@example.com",
+              size: "md",
             }}
+            className="w-full"
           />
           <ControlledField
             name="password"
@@ -70,9 +84,11 @@ export const Login = () => {
             componentProps={{
               label: "Password",
               placeholder: "********",
+              size: "md",
             }}
+            className="w-full"
           />
-          <div className="flex justify-between">
+          <div className="flex justify-between w-full">
             <ControlledField
               name="rememberMe"
               required={true}
@@ -85,9 +101,20 @@ export const Login = () => {
             />
             <Anchor href="forgot-password">Forgot Password?</Anchor>
           </div>
-          <Button fullWidth variant="filled" type="submit">
-            Login
-          </Button>
+          <div className="flex w-full justify-center">
+            <Button
+              // fullWidth
+              variant="filled"
+              type="submit"
+              size="lg"
+              radius="md"
+              color="#344C9E"
+              form="login-form"
+              w={200}
+            >
+              Login
+            </Button>
+          </div>
         </Form>
       </Paper>
     </div>

@@ -1,0 +1,36 @@
+.root {
+  &:hover {
+    --nl-bg: rgba(0, 0, 0, 0.07);
+    color: #344054;
+    svg {
+      color: #344c9e;
+    }
+  }
+  &[data-active] {
+    --nl-bg: white;
+    color: #344054;
+    svg {
+      color: #344c9e;
+    }
+  }
+  &[data-active]:hover {
+    --nl-bg: white;
+    color: #344054;
+    background-color: white;
+    svg {
+      color: #344c9e;
+    }
+  }
+  border-radius: 8px;
+
+  &:not(:first-child):not(:last-child) {
+    margin: 4px 0;
+  }
+  svg {
+    color: white;
+  }
+}
+.label {
+  font-weight: 600;
+  font-size: 16px !important;
+}

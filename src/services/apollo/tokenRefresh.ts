@@ -32,7 +32,7 @@ const getTokens = () => {
 
 const JwtRefreshLink = new TokenRefreshLink({
   accessTokenField: "access",
-  isTokenValidOrUndefined: () => {
+  isTokenValidOrUndefined: async () => {
     const tokens = getTokens();
     if (!tokens?.access) {
       return true;

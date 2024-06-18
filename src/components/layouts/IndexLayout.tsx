@@ -6,7 +6,7 @@ import { useRouteChecker } from "~/hooks";
 import useAuthStore from "~/store/AuthStore";
 function IndexLayout({ children }: any) {
   const { pathname } = useLocation();
-  const { tokens } = useAuthStore();
+  const { token } = useAuthStore();
 
   let landingPath = "";
 
@@ -19,7 +19,8 @@ function IndexLayout({ children }: any) {
   });
 
   const BootstrappedLayout = () => {
-    const isUserAuthorized = !tokens?.access;
+    console.log(token);
+    const isUserAuthorized = token;
 
     const redirectToLogin = !isAuthPage && !isUserAuthorized;
 
