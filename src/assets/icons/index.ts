@@ -1,0 +1,9 @@
+export { HomeIcon } from "./HomeIcon";
+export { HandShakeIcon } from "./HandShakeIcon";
+export { BriefCaseIcon } from "./BriefCaseIcon";
+export { UserIcon } from "./UserIcon";
+export { ClipBoardIcon } from "./ClipBoardIcon";
+export { GraphIcon } from "./GraphIcon";
+export { PaperPlaneIcon } from "./PaperPlaneIcon";
+export { BarIcon } from "./BarIcon";
+export { BitCoinIcon } from "./BitCoinIcon";

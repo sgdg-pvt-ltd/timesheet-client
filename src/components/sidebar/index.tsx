@@ -1,8 +1,9 @@
-import { Group, ScrollArea, NavLink, Title } from "@mantine/core";
+import { ScrollArea, Title } from "@mantine/core";
 
 import { useState } from "react";
 import { mockdata } from "./menuItems";
 import { useNavigate } from "react-router-dom";
+import NavLink from "../atomic/navlink/NavLink";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -32,8 +33,7 @@ function Sidebar() {
           key={item.label}
           active={index === active.parent}
           label={item.label}
-          //   rightSection={item.rightSection}
-          //   leftSection={<item.icon size="1rem" stroke={1.5} />}
+          leftSection={item.icon}
         >
           {item?.children?.map((child, idx) => {
             return (
@@ -41,8 +41,7 @@ function Sidebar() {
                 key={child.label}
                 active={idx === active.child}
                 label={child.label}
-                //   rightSection={item.rightSection}
-                //   leftSection={<item.icon size="1rem" stroke={1.5} />}
+                leftSection={child.icon}
                 onClick={() => handleClick(idx, child.path, "child")}
               />
             );
@@ -55,17 +54,24 @@ function Sidebar() {
           key={item.label}
           active={index === active.parent}
           label={item.label}
-          //   rightSection={item.rightSection}
-          //   leftSection={<item.icon size="1rem" stroke={1.5} />}
+          leftSection={item.icon}
           onClick={() => handleClick(index, item.path, "parent")}
         />
       );
   });
 
   return (
-    <div className="flex flex-col gap-4">
-      <Title order={2}>SG Design Nepal</Title>
-      <ScrollArea>{links}</ScrollArea>;
+    <div className="flex flex-col justify-between bg-[#344C9E] h-full p-4 text-white rounded-lg shadow-md">
+      <div className="flex flex-col gap-4">
+        <Title order={2}>SG Design Nepal</Title>
+        <ScrollArea>{links}</ScrollArea>
+      </div>
+      <NavLink
+        active={active.parent === 99}
+        label={"Organization"}
+        // leftSection={}
+        onClick={() => handleClick(99, "organization", "parent")}
+      />
     </div>
   );
 }

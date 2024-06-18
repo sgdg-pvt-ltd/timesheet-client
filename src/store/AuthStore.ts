@@ -4,27 +4,27 @@ const ls = new SecureLS({ encodingType: "aes", isCompression: false });
 
 type State = {
   authUser: any;
-  tokens: any;
+  token: any;
   role: string;
   email: string;
 };
 type Action = {
   setUser: (authUser: State["authUser"]) => void;
-  setToken: (tokens: State["tokens"]) => void;
+  setToken: (tokens: State["token"]) => void;
   setEmail: (role: State["role"]) => void;
   setRole: (email: State["email"]) => void;
 };
 
-const getTokens = () => {
-  let tokens = {};
+const getToken = () => {
+  let token = "";
   try {
-    const item = ls.get("tokens");
-    tokens = item ? JSON.parse(item) : {};
+    const item = ls.get("token");
+    token = item ?? "";
   } catch (err) {
     console.warn("Error reading storage key'_tokens'", err);
-    tokens = {};
+    token = "";
   }
-  return tokens;
+  return token;
 };
 
 const getAuthUser = () => {
@@ -51,11 +51,11 @@ const getRole = () => {
 
 const useAuthStore = create<State & Action>((set) => ({
   authUser: getAuthUser(),
-  tokens: getTokens(),
+  token: getToken(),
   role: getRole(),
   email: "",
   setUser: (authUser) => set(() => ({ authUser: authUser })),
-  setToken: (tokens) => set(() => ({ tokens: tokens })),
+  setToken: (token) => set(() => ({ token: token })),
   setEmail: (email) => set(() => ({ email: email })),
   setRole: (role) => set(() => ({ role: role })),
 }));
