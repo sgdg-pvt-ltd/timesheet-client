@@ -20,7 +20,7 @@ interface LoginData {
 }
 
 export const Login = () => {
-  const { login } = useLogin();
+  const { login, loading } = useLogin();
   const {
     Form,
     methods: {
@@ -111,6 +111,8 @@ export const Login = () => {
               color="#344C9E"
               form="login-form"
               w={200}
+              loading={loading}
+              disabled={loading}
             >
               Login
             </Button>

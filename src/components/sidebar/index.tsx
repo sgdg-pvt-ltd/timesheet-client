@@ -1,10 +1,11 @@
-import { ScrollArea, Title } from "@mantine/core";
+import { Divider, ScrollArea, Text, Title } from "@mantine/core";
 
 import { useState } from "react";
 import { mockdata } from "./menuItems";
 import { useNavigate } from "react-router-dom";
 import NavLink from "../atomic/navlink/NavLink";
-
+import { UserIcon } from "~/assets/icons";
+import { GoOrganization } from "react-icons/go";
 function Sidebar() {
   const navigate = useNavigate();
   const [active, setActive] = useState({
@@ -61,15 +62,20 @@ function Sidebar() {
   });
 
   return (
-    <div className="flex flex-col justify-between bg-[#344C9E] h-full p-4 text-white rounded-lg shadow-md">
+    <div className="flex flex-col justify-between bg-[#344C9E] h-full px-4 py-8 text-white">
       <div className="flex flex-col gap-4">
-        <Title order={2}>SG Design Nepal</Title>
+        <Title order={2} className="text-center">
+          Logo
+        </Title>
+
+        <Divider />
+
         <ScrollArea>{links}</ScrollArea>
       </div>
       <NavLink
         active={active.parent === 99}
         label={"Organization"}
-        // leftSection={}
+        leftSection={<GoOrganization size={20} />}
         onClick={() => handleClick(99, "organization", "parent")}
       />
     </div>

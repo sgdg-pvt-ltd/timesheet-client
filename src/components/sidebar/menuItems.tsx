@@ -1,40 +1,44 @@
+import { BsGraphUp } from "react-icons/bs";
 import {
-  BarIcon,
-  BitCoinIcon,
-  BriefCaseIcon,
-  ClipBoardIcon,
-  GraphIcon,
-  HandShakeIcon,
-  HomeIcon,
-  PaperPlaneIcon,
-  UserIcon,
-} from "~/assets/icons";
+  FaChartSimple,
+  FaClipboardList,
+  FaHandshake,
+  FaPaperPlane,
+  FaUser,
+} from "react-icons/fa6";
+import { IoBriefcaseSharp } from "react-icons/io5";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import { TbLayoutDashboardFilled } from "react-icons/tb";
 
 export const mockdata = [
-  { label: "Dashboard", icon: <HomeIcon />, path: "dashboard" },
+  {
+    label: "Dashboard",
+    icon: <TbLayoutDashboardFilled size={20} />,
+    path: "dashboard",
+  },
   {
     label: "Client",
-    icon: <HandShakeIcon />,
+    icon: <FaHandshake size={20} />,
     path: "client",
   },
   {
     label: "Project",
-    icon: <BriefCaseIcon />,
+    icon: <IoBriefcaseSharp size={20} />,
     path: "project",
   },
   {
     label: "Users",
-    icon: <UserIcon />,
+    icon: <FaUser size={20} />,
     path: "users",
   },
   {
     label: "Tasks",
-    icon: <ClipBoardIcon />,
+    icon: <FaClipboardList size={20} />,
     path: "tasks",
   },
   {
     label: "Reports",
-    icon: <GraphIcon />,
+    icon: <BsGraphUp size={20} />,
     children: [
       { label: "Weekly", path: "reports/weekly", icon: "" },
       { label: "Monthly", path: "reports/monthly", icon: "" },
@@ -42,7 +46,11 @@ export const mockdata = [
       { label: "Annually", path: "reports/annually", icon: "" },
     ],
   },
-  { label: "RFI", icon: <PaperPlaneIcon />, path: "rfi" },
-  { label: "Variation", icon: <BarIcon />, path: "variation" },
-  { label: "Finances", icon: <BitCoinIcon />, path: "finances" },
+  { label: "RFI", icon: <FaPaperPlane size={20} />, path: "rfi" },
+  { label: "Variation", icon: <FaChartSimple size={20} />, path: "variation" },
+  {
+    label: "Finances",
+    icon: <RiMoneyDollarCircleLine size={20} />,
+    path: "finances",
+  },
 ];
