@@ -5,6 +5,7 @@ import { FaRegEye } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import AddOrganization from "./components/AddOrganization";
 
 export const Organization = () => {
   const { data } = useListOrganizations();
@@ -15,7 +16,7 @@ export const Organization = () => {
         <Text fz={"24px"} fw={600}>
           Organizations
         </Text>
-        <Button>New Organization</Button>
+        <AddOrganization />
       </div>
       <div className="flex w-2/3 flex-col h-full overflow-y-auto gap-5">
         {data?.map((item) => {
