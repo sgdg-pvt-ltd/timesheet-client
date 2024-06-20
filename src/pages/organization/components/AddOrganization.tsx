@@ -1,13 +1,15 @@
-import { Button, Modal, Text, TextInput } from "@mantine/core";
-import React from "react";
-import { BiCross } from "react-icons/bi";
+import { Button, CloseIcon, Modal, Text, TextInput } from "@mantine/core";
 import { GoOrganization } from "react-icons/go";
 import { z } from "zod";
 import { ControlledField, useRHForm } from "~/components/form";
-import { useDisclosure } from "~/hooks/useDisclosure";
+import { useDisclosure } from "@mantine/hooks";
+import { useCreateOrganization } from "../hooks/useAddOrganization";
+import useAuthStore from "~/store/AuthStore";
 
 const AddOrganization = () => {
   const [opened, { open, close }] = useDisclosure();
+  const { createOrganization } = useCreateOrganization(close);
+  const { authUser } = useAuthStore();
   const {
     Form,
     methods: {
@@ -27,35 +29,39 @@ const AddOrganization = () => {
   });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = (data: any) => {
-    console.log(data);
+    const payload = {
+      createOrganizationDto: {
+        name: data.name,
+      },
+      adminId: authUser.id,
+    };
+    createOrganization(payload);
   };
   return (
     <>
       <Button color="#344C9E" onClick={open}>
         New Organization
       </Button>
-      <Modal.Root opened={opened} onClose={close} centered>
+
+      <Modal.Root opened={opened} onClose={close} centered radius="md">
+        {/* Modal content */}
         <Modal.Overlay onClick={close} />
         <Modal.Content>
           <Modal.Body className="flex flex-col p-6">
-            <div className="flex w-full gap-4">
-              <div className="flex size-8 items-center justify-center rounded-3xl bg-primary-100 p-2">
-                <GoOrganization size={30} />
-              </div>
+            <div className="flex w-full items-center gap-4">
+              <GoOrganization size={30} />
               <div className="flex w-full flex-col">
                 <div className="flex justify-between ">
-                  <Text
-                    className={`w-full`}
-                    fw={600}
-                    fz={"20px"}
-                    lh={"28px"}
-                    c={"gray.11"}
-                  >
+                  <Text className={`w-full`} fw={600} fz={"20px"} lh={"28px"}>
                     Create New Organization
                   </Text>
-                  <BiCross onClick={close} className="cursor-pointer" />
+                  <CloseIcon
+                    size="20"
+                    onClick={close}
+                    className="cursor-pointer"
+                  />
                 </div>
-                <Text size="sm" fw={400} fz="14px" lh={"20px"} c={"gray.8"}>
+                <Text size="sm" fw={400} fz="14px" lh={"20px"}>
                   Enter the details of the organization to create.
                 </Text>
               </div>
@@ -84,7 +90,7 @@ const AddOrganization = () => {
                 fullWidth
                 className="mt-1"
                 //   loading={}
-                color="primary.0"
+                color="#344C9E"
                 variant="filled"
               >
                 Create Group

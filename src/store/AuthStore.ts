@@ -31,7 +31,7 @@ const getAuthUser = () => {
   let users = {};
   try {
     const item = ls.get("_users");
-    users = item ? JSON.parse(item) : {};
+    users = item ?? {};
   } catch (error) {
     // eslint-disable-next-line no-console
     users = {};
