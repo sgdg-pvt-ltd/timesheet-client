@@ -19,7 +19,6 @@ function IndexLayout({ children }: any) {
   });
 
   const BootstrappedLayout = () => {
-    console.log(token);
     const isUserAuthorized = token;
 
     const redirectToLogin = !isAuthPage && !isUserAuthorized;

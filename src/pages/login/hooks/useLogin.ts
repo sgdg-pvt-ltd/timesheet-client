@@ -5,19 +5,26 @@ import useAuthStore from "~/store/AuthStore";
 
 const LOGIN = gql`
   mutation SignIn($signInInput: SigninInput!) {
-    signIn(signInInput: $signInInput)
+    signIn(signInInput: $signInInput) {
+      email
+      id
+      organizationId
+      token
+    }
   }
 `;
 const ls = new SecureLS({ encodingType: "aes", isCompression: false });
 
 export const useLogin = () => {
-  const { setToken } = useAuthStore();
+  const { setToken, setUser } = useAuthStore();
   const navigate = useNavigate();
   const [signIn, { data, loading, error }] = useMutation(LOGIN, {
     onCompleted: (res) => {
       console.log(res.signIn);
-      ls.set("token", res.signIn);
-      setToken(res.signIn);
+      ls.set("token", res.signIn.token);
+      ls.set("_users", res.signIn);
+      setToken(res.signIn.token);
+      setUser(res.signIn);
       navigate("/app/dashboard");
     },
     onError: (error) => console.log(error),
