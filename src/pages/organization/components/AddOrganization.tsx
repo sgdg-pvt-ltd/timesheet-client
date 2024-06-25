@@ -8,15 +8,15 @@ import useAuthStore from "~/store/AuthStore";
 
 const AddOrganization = () => {
   const [opened, { open, close }] = useDisclosure();
-  const { createOrganization } = useCreateOrganization(close);
   const { authUser } = useAuthStore();
+  
   const {
     Form,
     methods: {
       control,
       formState: { errors },
       //   watch,
-      //   reset
+      reset,
     },
   } = useRHForm({
     initialValues: {},
@@ -27,6 +27,11 @@ const AddOrganization = () => {
         .min(1, "Group Name is required."),
     }),
   });
+  const handleClose = () => {
+    close();
+    reset();
+  };
+  const { createOrganization } = useCreateOrganization(handleClose);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = (data: any) => {
     const payload = {
