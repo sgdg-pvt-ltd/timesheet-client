@@ -6,6 +6,10 @@ import { AppLayout, PublicLayout } from "~/components/layouts";
 // import { Loadable } from '~/components';
 const Dashboard = lazy(() => import("~/pages/dashboard"));
 const Login = lazy(() => import("~/pages/login"));
+const Signup = lazy(() => import("~/pages/signup"));
+const SignupSuccess = lazy(
+  () => import("~/pages/signup/components/SignupSuccess")
+);
 const NotFoundPage = lazy(() => import("~/pages/404"));
 const Organization = lazy(() => import("~/pages/organization"));
 const Users = lazy(() => import("~/pages/users/Users"));
@@ -14,9 +18,14 @@ const authRoutes: RouteObject = {
   path: "auth",
   element: <PublicLayout />,
   children: [
-    { index: true, element: <Login /> },
+    {
+      index: true,
+      path: "login",
+      element: <Login />,
+    },
     { path: "login", element: <Login /> },
-    { path: "register", element: <></> },
+    { path: "signup", element: <Signup /> },
+    { path: "signup/success", element: <SignupSuccess /> },
   ],
 };
 
