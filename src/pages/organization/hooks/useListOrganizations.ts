@@ -1,17 +1,18 @@
 import { gql, useQuery } from "@apollo/client";
 
 const LIST_ORGANIZATIONS = gql`
-  query Organizations {
-    organizations {
-      id
-      name
-      users {
-        id
-
+  query GetOrganizationsWithUsers {
+    getOrganizationsWithUsers {
+      organizationName
+      userDetails {
         email
-
         role
+        createdAt
+        updatedAt
       }
+      createdAt
+      organizationId
+      updatedAt
     }
   }
 `;
@@ -26,7 +27,7 @@ export const useListOrganizations = () => {
     },
   });
   return {
-    data: data?.organizations,
+    data: data?.getOrganizationsWithUsers,
     loading,
     error,
   };

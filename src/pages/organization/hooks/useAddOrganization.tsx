@@ -1,4 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
+import { CloseIcon } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { CiCircleCheck } from "react-icons/ci";
 
 const ADD_ORGANIZATION = gql`
   mutation CreateOrganization(
@@ -19,17 +22,35 @@ export const useCreateOrganization = (close?: () => void) => {
     ADD_ORGANIZATION,
     {
       onCompleted: (res) => {
-        console.log(res);
+        notifications.show({
+          id: "org-success",
+          withCloseButton: true,
+          autoClose: 5000,
+          // title: "You've been compromised",
+          message: "Organization created successfully",
+          color: "green",
+          icon: <CiCircleCheck />,
+          loading: false,
+        });
         close && close();
       },
       onError: (err) => {
-        console.log(err);
+        notifications.show({
+          id: "org-error",
+          withCloseButton: true,
+          autoClose: 5000,
+          // title: "You've been compromised",
+          message: err.message,
+          color: "red",
+          icon: <CloseIcon />,
+          loading: false,
+        });
       },
       update: (cache, { data }) => {
         if (data) {
           cache.modify({
             fields: {
-              organizations: () => {
+              getOrganizationsWithUsers: () => {
                 //
               },
             },

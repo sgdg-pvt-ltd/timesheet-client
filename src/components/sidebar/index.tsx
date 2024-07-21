@@ -2,37 +2,25 @@ import { Divider, ScrollArea, Text, Title } from "@mantine/core";
 
 import { useState } from "react";
 import { mockdata } from "./menuItems";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavLink from "../atomic/navlink/NavLink";
 import { UserIcon } from "~/assets/icons";
 import { GoOrganization } from "react-icons/go";
 function Sidebar() {
-  const navigate = useNavigate();
-  const [active, setActive] = useState({
-    parent: 0,
-    child: 0,
-  });
+  const { pathname } = useLocation();
+  const selectedMenu: string =
+    pathname?.split("/")[2] ?? pathname?.split("/").pop() ?? "";
+  const selectedChild =
+    pathname?.split("/").pop() ?? pathname?.split("/")[2] ?? "";
 
-  const handleClick = (index, path, type) => {
-    if (type === "parent") {
-      setActive({
-        parent: index,
-        child: -1,
-      });
-    } else {
-      setActive({
-        parent: 5,
-        child: index,
-      });
-    }
-    navigate(`/app/${path}`);
-  };
+  const navigate = useNavigate();
+
   const links = mockdata.map((item, index) => {
     if (item?.children?.length && item?.children?.length > 0) {
       return (
         <NavLink
           key={item.label}
-          active={index === active.parent}
+          active={selectedMenu === item.path}
           label={item.label}
           leftSection={item.icon}
         >
@@ -40,10 +28,10 @@ function Sidebar() {
             return (
               <NavLink
                 key={child.label}
-                active={idx === active.child}
+                active={selectedChild === child.label.toLowerCase()}
                 label={child.label}
                 leftSection={child.icon}
-                onClick={() => handleClick(idx, child.path, "child")}
+                onClick={() => navigate(child.path)}
               />
             );
           })}
@@ -53,10 +41,10 @@ function Sidebar() {
       return (
         <NavLink
           key={item.label}
-          active={index === active.parent}
+          active={selectedMenu === item.path}
           label={item.label}
           leftSection={item.icon}
-          onClick={() => handleClick(index, item.path, "parent")}
+          onClick={() => navigate(item.path ?? "")}
         />
       );
   });
@@ -73,10 +61,10 @@ function Sidebar() {
         <ScrollArea>{links}</ScrollArea>
       </div>
       <NavLink
-        active={active.parent === 99}
+        active={selectedMenu === "organization"}
         label={"Organization"}
         leftSection={<GoOrganization size={20} />}
-        onClick={() => handleClick(99, "organization", "parent")}
+        onClick={() => navigate("organization")}
       />
     </div>
   );

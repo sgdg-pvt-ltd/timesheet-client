@@ -39,6 +39,7 @@ export const mockdata = [
   {
     label: "Reports",
     icon: <BsGraphUp size={20} />,
+    path: "reports",
     children: [
       { label: "Weekly", path: "reports/weekly", icon: "" },
       { label: "Monthly", path: "reports/monthly", icon: "" },
