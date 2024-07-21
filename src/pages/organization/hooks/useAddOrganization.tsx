@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
+import { CloseIcon } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { CiCircleCheck } from "react-icons/ci";
 
@@ -41,7 +42,7 @@ export const useCreateOrganization = (close?: () => void) => {
           // title: "You've been compromised",
           message: err.message,
           color: "red",
-          icon: <CiCircleCheck />,
+          icon: <CloseIcon />,
           loading: false,
         });
       },
@@ -49,7 +50,7 @@ export const useCreateOrganization = (close?: () => void) => {
         if (data) {
           cache.modify({
             fields: {
-              organizations: () => {
+              getOrganizationsWithUsers: () => {
                 //
               },
             },

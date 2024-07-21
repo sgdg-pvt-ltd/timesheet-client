@@ -5,4 +5,5 @@ export const REGISTER = "register";
 export const RESET_PASSWORD = "reset-password";
 
 export const DASHBOARD = "dashboard";
+export const USERS = "users";
 export const ORGANIZATION = "organization";

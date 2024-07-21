@@ -8,7 +8,7 @@ const LOGIN = gql`
     signIn(signInInput: $signInInput) {
       email
       id
-      organizationId
+      organizationIds
       token
     }
   }

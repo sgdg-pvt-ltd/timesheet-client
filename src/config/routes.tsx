@@ -8,6 +8,7 @@ const Dashboard = lazy(() => import("~/pages/dashboard"));
 const Login = lazy(() => import("~/pages/login"));
 const NotFoundPage = lazy(() => import("~/pages/404"));
 const Organization = lazy(() => import("~/pages/organization"));
+const Users = lazy(() => import("~/pages/users/Users"));
 
 const authRoutes: RouteObject = {
   path: "auth",
@@ -34,8 +35,16 @@ const appRoutes: RouteObject = {
       element: <Dashboard />,
     },
     {
+      path: `users`,
+      element: <Users />,
+    },
+    {
       path: ORGANIZATION,
       element: <Organization />,
+    },
+    {
+      path: `${ORGANIZATION}/:id`,
+      element: <Users />,
     },
     notFoundRoutes,
   ],

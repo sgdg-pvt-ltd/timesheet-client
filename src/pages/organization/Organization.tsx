@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Menu, Text } from "@mantine/core";
+import { Card, Menu, Text } from "@mantine/core";
 import { useListOrganizations } from "./hooks/useListOrganizations";
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegEye } from "react-icons/fa6";
@@ -6,9 +6,11 @@ import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import AddOrganization from "./components/AddOrganization";
+import { useNavigate } from "react-router-dom";
 
 export const Organization = () => {
   const { data } = useListOrganizations();
+  const navigate = useNavigate();
 
   return (
     <div className="h-full flex flex-col gap-6 ">
@@ -21,11 +23,20 @@ export const Organization = () => {
       <div className="flex w-2/3 flex-col h-full overflow-y-auto gap-5">
         {data?.map((item) => {
           return (
-            <Card shadow="sm" padding="lg" radius="md" withBorder className="">
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              withBorder
+              className=""
+              key={item?.organizationId}
+            >
               <div className="flex h-full justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <Text tt="capitalize">{item.name}</Text>
-                  <Badge>{item.users.length} users</Badge>
+                <div className="flex items-center justify-between w-full gap-4">
+                  <Text tt="capitalize">{item.organizationName}</Text>
+                  <Text>
+                    Created on: {new Date(item.createdAt)?.toLocaleString()}
+                  </Text>
                 </div>
                 <div className="flex items-center">
                   <Menu
@@ -40,7 +51,10 @@ export const Organization = () => {
                       </button>
                     </Menu.Target>
                     <Menu.Dropdown>
-                      <Menu.Item leftSection={<FaRegEye size={18} />}>
+                      <Menu.Item
+                        leftSection={<FaRegEye size={18} />}
+                        onClick={() => navigate(item?.organizationId)}
+                      >
                         View
                       </Menu.Item>
                       <Menu.Item leftSection={<CiEdit size={18} />}>
