@@ -20,7 +20,6 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const [signIn, { data, loading, error }] = useMutation(LOGIN, {
     onCompleted: (res) => {
-      console.log(res.signIn);
       ls.set("token", res.signIn.token);
       ls.set("_users", res.signIn);
       setToken(res.signIn.token);

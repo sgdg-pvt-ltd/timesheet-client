@@ -13,6 +13,7 @@ import { z } from "zod";
 import { ControlledField, useRHForm } from "~/components/form";
 import loginImg from "~/assets/images/login2.png";
 import { useLogin } from "./hooks/useLogin";
+import { Link } from "react-router-dom";
 interface LoginData {
   email: string;
   password: string;
@@ -32,11 +33,15 @@ export const Login = () => {
     schema: z.object({
       email: z
         .string({ required_error: "Email is required." })
+        .email("Invalid email")
         .refine((dtx) => dtx.trim()?.length > 0, "Email is required"),
-      password: z.string({ required_error: "Password is required." }),
+      password: z
+        .string({ required_error: "Password is required." })
+        .min(1, "Password is required"),
       rememberMe: z.boolean().default(false),
     }),
   });
+  console.log(errors);
 
   const handleSubmit = async (data) => {
     const { email, password, rememberMe } = data;
@@ -101,7 +106,7 @@ export const Login = () => {
             />
             <Anchor href="forgot-password">Forgot Password?</Anchor>
           </div>
-          <div className="flex w-full justify-center">
+          <div className="flex flex-col gap-4 w-full items-center justify-center">
             <Button
               // fullWidth
               variant="filled"
@@ -116,6 +121,9 @@ export const Login = () => {
             >
               Login
             </Button>
+            <Link to={"/auth/signup"} replace={true}>
+              <Text c={"blue"}>Create new account</Text>
+            </Link>
           </div>
         </Form>
       </Paper>
